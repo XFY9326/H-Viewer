@@ -1,9 +1,10 @@
 package ml.puredark.hviewer.ui.customs;
 
 import android.content.Context;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
+
+import androidx.customview.widget.ViewDragHelper;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import java.lang.reflect.Field;
 

@@ -8,27 +8,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Animatable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.provider.DocumentFile;
-import android.support.v4.util.Pair;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SimpleItemAnimator;
-import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
@@ -38,6 +22,22 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.util.Pair;
+import androidx.core.view.GravityCompat;
+import androidx.documentfile.provider.DocumentFile;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
+import androidx.viewpager.widget.ViewPager;
 
 import com.dpizarro.autolabel.library.AutoLabelUI;
 import com.facebook.common.references.CloseableReference;
@@ -52,6 +52,9 @@ import com.facebook.imagepipeline.image.ImageInfo;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.gc.materialdesign.views.ButtonFlat;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager;
@@ -59,7 +62,6 @@ import com.h6ah4i.android.widget.advrecyclerview.expandable.RecyclerViewExpandab
 import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.rengwuxian.materialedittext.MaterialEditText;
-import com.umeng.analytics.MobclickAgent;
 
 import java.io.File;
 import java.io.IOException;
@@ -74,11 +76,10 @@ import biz.laenger.android.vpbs.ViewPagerBottomSheetBehavior;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import me.majiajie.pagerbottomtabstrip.Controller;
-import me.majiajie.pagerbottomtabstrip.PagerBottomTabLayout;
-import me.majiajie.pagerbottomtabstrip.TabItemBuilder;
-import me.majiajie.pagerbottomtabstrip.TabStripBuild;
-import me.majiajie.pagerbottomtabstrip.listener.OnTabItemSelectListener;
+import me.majiajie.pagerbottomtabstrip.NavigationController;
+import me.majiajie.pagerbottomtabstrip.PageNavigationView;
+import me.majiajie.pagerbottomtabstrip.item.NormalItemView;
+import me.majiajie.pagerbottomtabstrip.listener.OnTabItemSelectedListener;
 import ml.puredark.hviewer.HViewerApplication;
 import ml.puredark.hviewer.R;
 import ml.puredark.hviewer.beans.Category;
@@ -87,7 +88,6 @@ import ml.puredark.hviewer.beans.SiteGroup;
 import ml.puredark.hviewer.beans.Tag;
 import ml.puredark.hviewer.configs.UrlConfig;
 import ml.puredark.hviewer.dataholders.AbstractTagHolder;
-import ml.puredark.hviewer.dataholders.DownloadTaskHolder;
 import ml.puredark.hviewer.dataholders.FavorTagHolder;
 import ml.puredark.hviewer.dataholders.SiteHolder;
 import ml.puredark.hviewer.dataholders.SiteTagHolder;
@@ -157,7 +157,7 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.bottom_sheet_view_pager)
     ViewPager bottomSheetViewPager;
     @BindView(R.id.pager_bottom_tab_layout)
-    PagerBottomTabLayout pagerBottomTabLayout;
+    PageNavigationView pagerBottomTabLayout;
 
     private SiteAdapter siteAdapter;
     private CategoryAdapter categoryAdapter;
@@ -834,40 +834,51 @@ public class MainActivity extends BaseActivity {
         final ViewPagerBottomSheetBehavior behavior = ViewPagerBottomSheetBehavior.from(bottomSheet);
         //默认设置为隐藏
         behavior.setState(ViewPagerBottomSheetBehavior.STATE_HIDDEN);
-        TabItemBuilder tabItem1 = new TabItemBuilder(this).create()
-                .setDefaultColor(getResources().getColor(R.color.dimgray))
-                .setSelectedColor(getResources().getColor(R.color.colorPrimaryDark))
-                .setDefaultIcon(R.drawable.ic_add_black)
-                .setText("当前站点")
-                .setTag("currSite")
-                .build();
-        TabItemBuilder tabItem2 = new TabItemBuilder(this).create()
-                .setDefaultColor(getResources().getColor(R.color.dimgray))
-                .setSelectedColor(getResources().getColor(R.color.colorPrimaryDark))
-                .setDefaultIcon(R.drawable.ic_favorite_border_white)
-                .setText("收藏TAG")
-                .setTag("favourite")
-                .build();
-        TabItemBuilder tabItem3 = new TabItemBuilder(this).create()
-                .setDefaultColor(getResources().getColor(R.color.dimgray))
-                .setSelectedColor(getResources().getColor(R.color.colorPrimaryDark))
-                .setDefaultIcon(R.drawable.ic_history_white)
-                .setText("搜索历史")
-                .setTag("history")
-                .build();
-        TabStripBuild builder = pagerBottomTabLayout.builder();
-        Controller controller = builder.addTabItem(tabItem1)
-                .addTabItem(tabItem2)
-                .addTabItem(tabItem3)
-                .build();
-        controller.addTabItemClickListener(new OnTabItemSelectListener() {
+
+        NormalItemView normalItemView1 = new NormalItemView(this);
+        normalItemView1.setTitle("当前站点");
+        Drawable wrappedDrawable1 = DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_add_black));
+        DrawableCompat.setTint(wrappedDrawable1, getResources().getColor(R.color.dimgray));
+        normalItemView1.setDefaultDrawable(wrappedDrawable1);
+
+        Drawable wrappedDrawable2 = DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_add_black));
+        DrawableCompat.setTint(wrappedDrawable2, getResources().getColor(R.color.colorPrimaryDark));
+        normalItemView1.setSelectedDrawable(wrappedDrawable2);
+
+        NormalItemView normalItemView2 = new NormalItemView(this);
+        normalItemView2.setTitle("收藏TAG");
+        Drawable wrappedDrawable21 = DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_favorite_border_white));
+        DrawableCompat.setTint(wrappedDrawable21, getResources().getColor(R.color.dimgray));
+        normalItemView1.setDefaultDrawable(wrappedDrawable21);
+
+        Drawable wrappedDrawable22 = DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_favorite_border_white));
+        DrawableCompat.setTint(wrappedDrawable22, getResources().getColor(R.color.colorPrimaryDark));
+        normalItemView1.setSelectedDrawable(wrappedDrawable22);
+
+        NormalItemView normalItemView3 = new NormalItemView(this);
+        normalItemView3.setTitle("搜索历史");
+        Drawable wrappedDrawable31 = DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_history_white));
+        DrawableCompat.setTint(wrappedDrawable31, getResources().getColor(R.color.dimgray));
+        normalItemView1.setDefaultDrawable(wrappedDrawable31);
+
+        Drawable wrappedDrawable32 = DrawableCompat.wrap(getResources().getDrawable(R.drawable.ic_history_white));
+        DrawableCompat.setTint(wrappedDrawable32, getResources().getColor(R.color.colorPrimaryDark));
+        normalItemView1.setSelectedDrawable(wrappedDrawable32);
+
+        PageNavigationView.CustomBuilder builder = pagerBottomTabLayout.custom();
+        builder.addItem(normalItemView1);
+        builder.addItem(normalItemView2);
+        builder.addItem(normalItemView3);
+        NavigationController controller = builder.build();
+        controller.addTabItemSelectedListener(new OnTabItemSelectedListener() {
             @Override
-            public void onSelected(int index, Object tag) {
+            public void onSelected(int index, int old) {
                 bottomSheetViewPager.setCurrentItem(index);
             }
 
             @Override
-            public void onRepeatClick(int index, Object tag) {
+            public void onRepeat(int index) {
+
             }
         });
         bottomSheetViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -964,7 +975,7 @@ public class MainActivity extends BaseActivity {
             drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END);
             currFragment.onLoadUrl(site.indexUrl);
         }
-        if(site.hasFlag(Site.FLAG_LOGIN_REQUIRED) && TextUtils.isEmpty(site.cookie)){
+        if (site.hasFlag(Site.FLAG_LOGIN_REQUIRED) && TextUtils.isEmpty(site.cookie)) {
             Toast.makeText(this, "该站点需要登录才能访问", Toast.LENGTH_SHORT);
             temp = site;
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
@@ -1171,13 +1182,11 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onResume() {
         super.onResume();
-        MobclickAgent.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        MobclickAgent.onPause(this);
         mRecyclerViewDragDropManager.cancelDrag();
     }
 

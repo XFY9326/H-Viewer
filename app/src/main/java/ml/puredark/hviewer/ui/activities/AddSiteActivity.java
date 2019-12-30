@@ -2,16 +2,17 @@ package ml.puredark.hviewer.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
 import com.gc.materialdesign.views.ButtonFlat;
 import com.github.clans.fab.FloatingActionButton;
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -166,6 +167,7 @@ public class AddSiteActivity extends BaseActivity {
                 }
             });
         }
+        super.onActivityResult(requestCode, resultCode, intent);
     }
 
     private Site parseSite(String json) {

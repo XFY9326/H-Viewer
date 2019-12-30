@@ -1,10 +1,11 @@
 package ml.puredark.hviewer.ui.customs;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+
+import androidx.annotation.NonNull;
+import androidx.viewpager.widget.ViewPager;
 
 public class MultiTouchViewPager extends ViewPager {
 

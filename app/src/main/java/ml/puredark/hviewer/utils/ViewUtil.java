@@ -16,8 +16,9 @@
 
 package ml.puredark.hviewer.utils;
 
-import android.support.v4.view.ViewCompat;
 import android.view.View;
+
+import androidx.core.view.ViewCompat;
 
 import com.nineoldandroids.view.ViewHelper;
 

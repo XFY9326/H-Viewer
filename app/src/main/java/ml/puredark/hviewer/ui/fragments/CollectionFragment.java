@@ -5,9 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +15,10 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.AbsListView;
 
-import com.umeng.analytics.MobclickAgent;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 import java.io.UnsupportedEncodingException;
@@ -48,7 +48,6 @@ import ml.puredark.hviewer.ui.customs.WrappedLinearLayoutManager;
 import ml.puredark.hviewer.ui.customs.WrappedStaggeredGridLayoutManager;
 import ml.puredark.hviewer.ui.dataproviders.ListDataProvider;
 import ml.puredark.hviewer.utils.DensityUtil;
-import ml.puredark.hviewer.utils.SimpleFileUtil;
 
 public class CollectionFragment extends MyFragment {
 
@@ -234,11 +233,11 @@ public class CollectionFragment extends MyFragment {
                 @Override
                 public void onPageFinished(WebView view, String url) {
                     //Load HTML
-                    if(!TextUtils.isEmpty(site.indexRule.js)){
-                        mWebView.loadUrl("javascript:"+site.indexRule.js);
-                        new Handler().postDelayed(()->{
+                    if (!TextUtils.isEmpty(site.indexRule.js)) {
+                        mWebView.loadUrl("javascript:" + site.indexRule.js);
+                        new Handler().postDelayed(() -> {
                             mWebView.loadUrl("javascript:window.HtmlParser.onResultGot(document.documentElement.outerHTML, '" + url + "', " + page + ");");
-                        },1000);
+                        }, 1000);
                     } else {
                         mWebView.loadUrl("javascript:window.HtmlParser.onResultGot(document.documentElement.outerHTML, '" + url + "', " + page + ");");
                     }
@@ -250,11 +249,11 @@ public class CollectionFragment extends MyFragment {
                 mWebView.loadUrl("javascript:document.body.scrollTop = document.body.scrollHeight;");
                 new Handler().postDelayed(() -> {
                     scrollTimes++;
-                    if(!TextUtils.isEmpty(site.indexRule.js)){
-                        mWebView.loadUrl("javascript:"+site.indexRule.js);
-                        new Handler().postDelayed(()->{
+                    if (!TextUtils.isEmpty(site.indexRule.js)) {
+                        mWebView.loadUrl("javascript:" + site.indexRule.js);
+                        new Handler().postDelayed(() -> {
                             mWebView.loadUrl("javascript:window.HtmlParser.onResultGot(document.documentElement.outerHTML, '" + url + "', " + page + ");");
-                        },1000);
+                        }, 1000);
                     } else {
                         mWebView.loadUrl("javascript:window.HtmlParser.onResultGot(document.documentElement.outerHTML, '" + url + "', " + page + ");");
                     }
@@ -367,8 +366,6 @@ public class CollectionFragment extends MyFragment {
         super.onResume();
         if (clickPos >= 0 && clickPos < adapter.getItemCount())
             adapter.notifyItemChanged(clickPos);
-        if (site != null)
-            MobclickAgent.onPageStart(site.title);
     }
 
     @Override
@@ -376,8 +373,6 @@ public class CollectionFragment extends MyFragment {
         super.onPause();
         if (clickPos >= 0 && clickPos < adapter.getItemCount())
             adapter.notifyItemChanged(clickPos);
-        if (site != null)
-            MobclickAgent.onPageEnd(site.title);
     }
 
     @Override

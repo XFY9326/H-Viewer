@@ -5,9 +5,10 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Handler;
 import android.provider.MediaStore;
-import android.support.v4.provider.DocumentFile;
 import android.text.TextUtils;
 import android.widget.ImageView;
+
+import androidx.documentfile.provider.DocumentFile;
 
 import com.facebook.common.executors.CallerThreadExecutor;
 import com.facebook.common.memory.PooledByteBuffer;

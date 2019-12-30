@@ -3,8 +3,9 @@ package ml.puredark.hviewer.dataholders;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.support.v4.provider.DocumentFile;
-import android.support.v4.util.Pair;
+
+import androidx.core.util.Pair;
+import androidx.documentfile.provider.DocumentFile;
 
 import com.google.gson.Gson;
 
@@ -13,13 +14,7 @@ import java.util.List;
 
 import ml.puredark.hviewer.beans.CollectionGroup;
 import ml.puredark.hviewer.beans.DownloadTask;
-import ml.puredark.hviewer.beans.LocalCollection;
-import ml.puredark.hviewer.beans.Picture;
-import ml.puredark.hviewer.beans.Video;
 import ml.puredark.hviewer.helpers.FileHelper;
-
-import static ml.puredark.hviewer.beans.DownloadItemStatus.STATUS_DOWNLOADING;
-import static ml.puredark.hviewer.beans.DownloadItemStatus.STATUS_WAITING;
 
 /**
  * Created by PureDark on 2016/8/12.

@@ -10,13 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.OrientationHelper;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
@@ -32,9 +25,16 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.OrientationHelper;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
-import com.umeng.analytics.MobclickAgent;
+import com.google.android.material.appbar.AppBarLayout;
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 import net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout;
@@ -685,8 +685,6 @@ public class CollectionActivity extends BaseActivity implements AppBarLayout.OnO
                 myClipboard.setPrimaryClip(ClipData.newPlainText("url", url));
                 showSnackBar("没有可调用的浏览器，网址已复制到剪贴板");
             }
-            // 统计打开浏览器访问次数
-            MobclickAgent.onEvent(HViewerApplication.mContext, "SwitchToBrowser");
         } else {
             showSnackBar("网址为空！");
         }
@@ -702,8 +700,6 @@ public class CollectionActivity extends BaseActivity implements AppBarLayout.OnO
         }else{
             showSnackBar("图册已收藏！");
         }
-        // 统计收藏次数
-        MobclickAgent.onEvent(HViewerApplication.mContext, "FavorCollection");
     }
 
     @OnClick(R.id.fab_download)

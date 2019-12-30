@@ -6,9 +6,10 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.widget.BaseAdapter;
+
+import androidx.appcompat.app.AlertDialog;
 
 import ml.puredark.hviewer.R;
 import ml.puredark.hviewer.ui.activities.BaseActivity;

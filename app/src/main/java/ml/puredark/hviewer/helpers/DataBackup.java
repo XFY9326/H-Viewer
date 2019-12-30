@@ -1,8 +1,9 @@
 package ml.puredark.hviewer.helpers;
 
 import android.content.SharedPreferences;
-import android.support.v4.provider.DocumentFile;
-import android.support.v4.util.Pair;
+
+import androidx.core.util.Pair;
+import androidx.documentfile.provider.DocumentFile;
 
 import com.google.gson.Gson;
 

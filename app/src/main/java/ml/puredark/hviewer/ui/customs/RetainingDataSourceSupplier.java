@@ -1,6 +1,6 @@
 package ml.puredark.hviewer.ui.customs;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.facebook.common.executors.CallerThreadExecutor;
 import com.facebook.common.internal.Supplier;

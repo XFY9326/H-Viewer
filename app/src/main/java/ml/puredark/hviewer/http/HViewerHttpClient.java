@@ -3,7 +3,8 @@ package ml.puredark.hviewer.http;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.v4.util.Pair;
+
+import androidx.core.util.Pair;
 
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.lzy.okgo.https.HttpsUtils;

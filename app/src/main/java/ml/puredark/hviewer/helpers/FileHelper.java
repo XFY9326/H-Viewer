@@ -2,8 +2,9 @@ package ml.puredark.hviewer.helpers;
 
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.support.v4.provider.DocumentFile;
 import android.text.TextUtils;
+
+import androidx.documentfile.provider.DocumentFile;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

@@ -1,6 +1,6 @@
 package ml.puredark.hviewer.ui.dataproviders;
 
-import android.support.v4.util.Pair;
+import androidx.core.util.Pair;
 
 import java.util.List;
 

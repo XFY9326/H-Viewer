@@ -9,24 +9,23 @@ import android.content.pm.ShortcutManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.RequiresApi;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.graphics.drawable.DrawerArrowDrawable;
-import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.graphics.drawable.DrawerArrowDrawable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.github.clans.fab.FloatingActionMenu;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.snackbar.Snackbar;
 import com.nineoldandroids.animation.Animator;
-import com.umeng.analytics.MobclickAgent;
 
 import ml.puredark.hviewer.R;
 import ml.puredark.hviewer.dataholders.DownloadTaskHolder;
@@ -66,6 +65,13 @@ public class BaseActivity extends SwipeBackActivity implements AppBarLayout.OnOf
     //是否开始页面统计
     private boolean analyze = true;
     private int lastOffset;
+
+    @TargetApi(Build.VERSION_CODES.N_MR1)
+    public static void reportShortcutUsed(Context context, String shortcutId) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+            context.getSystemService(ShortcutManager.class).reportShortcutUsed(shortcutId);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,13 +207,6 @@ public class BaseActivity extends SwipeBackActivity implements AppBarLayout.OnOf
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.N_MR1)
-    public static void reportShortcutUsed(Context context, String shortcutId) {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-            context.getSystemService(ShortcutManager.class).reportShortcutUsed(shortcutId);
-        }
-    }
-
     @Override
     public void onBackPressed() {
         if (animating || !allowExit)
@@ -262,10 +261,6 @@ public class BaseActivity extends SwipeBackActivity implements AppBarLayout.OnOf
     @Override
     public void onResume() {
         super.onResume();
-        if (analyze) {
-            MobclickAgent.onPageStart(this.getClass().getSimpleName());
-            MobclickAgent.onResume(this);
-        }
         IntentFilter downloadIntentFilter = new IntentFilter();
         downloadIntentFilter.addAction(DownloadService.ON_START);
         downloadIntentFilter.addAction(DownloadService.ON_PAUSE);
@@ -280,10 +275,6 @@ public class BaseActivity extends SwipeBackActivity implements AppBarLayout.OnOf
     @Override
     public void onPause() {
         super.onPause();
-        if (analyze) {
-            MobclickAgent.onPageEnd(this.getClass().getSimpleName());
-            MobclickAgent.onPause(this);
-        }
         unregisterReceiver(receiver);
         if (appBar != null)
             appBar.removeOnOffsetChangedListener(this);

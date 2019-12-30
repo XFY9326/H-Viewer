@@ -1,7 +1,6 @@
 package ml.puredark.hviewer.beans;
 
 import ml.puredark.hviewer.libraries.advrecyclerview.common.data.AbstractExpandableDataProvider;
-import ml.puredark.hviewer.ui.dataproviders.AbstractDataProvider;
 
 import static ml.puredark.hviewer.beans.DownloadItemStatus.STATUS_DOWNLOADED;
 

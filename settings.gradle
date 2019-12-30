@@ -1,1 +1,1 @@
-include ':app', ':httpdns'
+include ':app', ':httpdns', ':materialanimatedswitch', ':multiline-collapsingtoolbar'

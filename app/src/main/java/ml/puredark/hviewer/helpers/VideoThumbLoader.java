@@ -5,8 +5,9 @@ import android.graphics.Bitmap;
 import android.media.ThumbnailUtils;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
-import android.support.v4.util.LruCache;
 import android.widget.ImageView;
+
+import androidx.collection.LruCache;
 
 public class VideoThumbLoader {
     private volatile static VideoThumbLoader instance;

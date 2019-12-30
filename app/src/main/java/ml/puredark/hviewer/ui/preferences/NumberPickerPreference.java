@@ -3,14 +3,15 @@ package ml.puredark.hviewer.ui.preferences;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.preference.DialogPreference;
-import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.FrameLayout;
-import android.widget.NumberPicker;
 import android.widget.FrameLayout.LayoutParams;
+import android.widget.NumberPicker;
+
+import androidx.annotation.NonNull;
 
 import ml.puredark.hviewer.R;
 

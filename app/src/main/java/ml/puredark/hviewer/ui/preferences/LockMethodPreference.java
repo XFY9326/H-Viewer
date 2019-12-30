@@ -2,9 +2,10 @@ package ml.puredark.hviewer.ui.preferences;
 
 import android.content.Context;
 import android.preference.Preference;
-import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+
+import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
 
 import ml.puredark.hviewer.R;
 import ml.puredark.hviewer.ui.fragments.LockMethodFragment;

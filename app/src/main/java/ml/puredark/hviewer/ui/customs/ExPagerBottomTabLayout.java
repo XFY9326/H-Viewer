@@ -6,17 +6,18 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 
-import me.majiajie.pagerbottomtabstrip.Controller;
-import me.majiajie.pagerbottomtabstrip.PagerBottomTabLayout;
-import me.majiajie.pagerbottomtabstrip.TabItemBuilder;
-import me.majiajie.pagerbottomtabstrip.TabStripBuild;
+import androidx.core.graphics.drawable.DrawableCompat;
+
+import me.majiajie.pagerbottomtabstrip.NavigationController;
+import me.majiajie.pagerbottomtabstrip.PageNavigationView;
+import me.majiajie.pagerbottomtabstrip.item.NormalItemView;
 import ml.puredark.hviewer.R;
 
 /**
  * Created by PureDark on 2016/10/12.
  */
 
-public class ExPagerBottomTabLayout extends PagerBottomTabLayout {
+public class ExPagerBottomTabLayout extends PageNavigationView {
     private TypedArray typedArray;
 
     public ExPagerBottomTabLayout(Context context) {
@@ -46,7 +47,7 @@ public class ExPagerBottomTabLayout extends PagerBottomTabLayout {
         TypedArray colorType = context.obtainStyledAttributes(typedValue.data, new int[]{R.attr.colorPrimaryDark});
         int color = colorType.getColor(0, 0);
         a.recycle();
-        TabStripBuild builder = this.builder();
+        CustomBuilder builder = this.custom();
         for (int i = 0; i < tabRealStrArr.length; i++) {
             String tabTitle = tabRealStrArr[i];
             Drawable icon = null;
@@ -67,17 +68,23 @@ public class ExPagerBottomTabLayout extends PagerBottomTabLayout {
                     icon = a.getDrawable(R.styleable.ExPagerBottomTabLayout_bottomTab5);
                     break;
             }
-            TabItemBuilder tabItemBuilder = new TabItemBuilder(context).create()
-                    .setDefaultColor(0xFF696969)
-                    .setSelectedColor(color)
-                    .setDefaultIcon(icon)
-                    .setText(tabTitle)
-                    .build();
-            builder.addTabItem(tabItemBuilder);
+            NormalItemView normalItemView = new NormalItemView(context);
+            normalItemView.setTitle(tabTitle);
+            if (icon != null) {
+                Drawable wrappedDrawable1 = DrawableCompat.wrap(icon);
+                DrawableCompat.setTint(wrappedDrawable1, 0xFF696969);
+                normalItemView.setDefaultDrawable(wrappedDrawable1);
+
+                Drawable wrappedDrawable2 = DrawableCompat.wrap(icon);
+                DrawableCompat.setTint(wrappedDrawable2, color);
+                normalItemView.setSelectedDrawable(wrappedDrawable2);
+            }
+            builder.addItem(normalItemView);
         }
-        Controller controller = builder.build();
+        NavigationController controller = builder.build();
         int currItem = a.getInt(R.styleable.ExPagerBottomTabLayout_bottomCurrItem, 0);
         controller.setSelect(currItem);
+        colorType.recycle();
     }
 
     private String[] getTabRealStrArr(String tabStrArr) {

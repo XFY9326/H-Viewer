@@ -3,20 +3,12 @@ package ml.puredark.hviewer.dataholders;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.text.TextUtils;
-import android.util.Pair;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 import ml.puredark.hviewer.beans.MarketSource;
-import ml.puredark.hviewer.beans.Tag;
 import ml.puredark.hviewer.helpers.Logger;
-import ml.puredark.hviewer.utils.SharedPreferencesUtil;
 
 /**
  * Created by PureDark on 2017/8/7.

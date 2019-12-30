@@ -7,10 +7,9 @@ import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.IBinder;
-import android.support.v4.provider.DocumentFile;
-import android.support.v4.util.Pair;
 
-import com.umeng.analytics.MobclickAgent;
+import androidx.core.util.Pair;
+import androidx.documentfile.provider.DocumentFile;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -162,8 +161,6 @@ public class DownloadManager {
         task.path = path;
         holder.addDownloadTask(task);
         downloadingTasks.add(task);
-        // 统计添加下载次数
-        MobclickAgent.onEvent(HViewerApplication.mContext, "DownloadTaskCreated");
         if (!isDownloading())
             startDownload(task);
         return true;

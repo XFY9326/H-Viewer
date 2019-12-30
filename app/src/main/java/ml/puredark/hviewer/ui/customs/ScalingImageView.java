@@ -3,7 +3,8 @@ package ml.puredark.hviewer.ui.customs;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.widget.ImageView;
+
+import androidx.appcompat.widget.AppCompatImageView;
 
 /**
  * An ImageView which works as if adjustViewBounds=true and
@@ -16,7 +17,7 @@ import android.widget.ImageView;
  *   />
  * </pre>
  */
-public class ScalingImageView extends android.support.v7.widget.AppCompatImageView {
+public class ScalingImageView extends AppCompatImageView {
 
     public ScalingImageView(Context context) {
         super(context);

@@ -8,7 +8,6 @@ import android.net.http.SslError;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.design.widget.CoordinatorLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
+
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
 import com.shuyu.gsyvideoplayer.GSYPreViewManager;
@@ -39,8 +40,8 @@ import ml.puredark.hviewer.ui.fragments.SettingFragment;
 import ml.puredark.hviewer.ui.listeners.SimpleVideoListener;
 import ml.puredark.hviewer.utils.SharedPreferencesUtil;
 
-import static ml.puredark.hviewer.ui.fragments.SettingFragment.VIDEO_IJKPLAYER;
 import static ml.puredark.hviewer.ui.fragments.SettingFragment.VIDEO_H5PLAYER;
+import static ml.puredark.hviewer.ui.fragments.SettingFragment.VIDEO_IJKPLAYER;
 import static ml.puredark.hviewer.ui.fragments.SettingFragment.VIDEO_OTHERPLAYER;
 
 public class VideoViewerActivity extends BaseActivity {

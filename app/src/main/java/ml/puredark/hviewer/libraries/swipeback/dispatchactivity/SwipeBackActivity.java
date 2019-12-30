@@ -1,7 +1,8 @@
 package ml.puredark.hviewer.libraries.swipeback.dispatchactivity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 
 /**

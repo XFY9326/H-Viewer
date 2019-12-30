@@ -17,11 +17,12 @@
 package ml.puredark.hviewer.libraries.advrecyclerview.common.widget;
 
 import android.content.Context;
-import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+
+import androidx.annotation.DrawableRes;
 
 import ml.puredark.hviewer.R;
 

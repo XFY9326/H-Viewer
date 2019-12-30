@@ -172,10 +172,6 @@
         android:title="@string/settings_about">
 
         <Preference
-            android:key="pref_about_upgrade"
-            android:title="@string/settings_about_upgrade" />
-
-        <Preference
             android:key="pref_about_license"
             android:title="@string/settings_about_license" />
         <Preference

@@ -15,14 +15,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.provider.DocumentFile;
-import android.support.v4.util.Pair;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -40,6 +32,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.util.Pair;
+import androidx.documentfile.provider.DocumentFile;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
+
 import com.facebook.common.logging.FLog;
 import com.facebook.common.memory.PooledByteBuffer;
 import com.facebook.common.references.CloseableReference;
@@ -50,7 +51,6 @@ import com.facebook.drawee.view.DraweeView;
 import com.facebook.imagepipeline.datasource.BaseBitmapDataSubscriber;
 import com.facebook.imagepipeline.image.CloseableImage;
 import com.facebook.imagepipeline.image.ImageInfo;
-import com.umeng.analytics.MobclickAgent;
 
 import net.rdrei.android.dirchooser.DirectoryChooserConfig;
 import net.rdrei.android.dirchooser.DirectoryChooserFragment;
@@ -674,7 +674,6 @@ public class PictureViewerActivity extends BaseActivity {
                 shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
                 shareIntent.setType("image/*");
                 startActivity(Intent.createChooser(shareIntent, "将图片分享到"));
-                MobclickAgent.onEvent(this, "ShareSinglePicture");
             } else if (action == ACTION_SHOW_INFO) {
                 Uri uri = Uri.parse(url);
                 viewHolder.tvImageType.setText(FileUtils.getMimeType(this, uri));
@@ -785,11 +784,8 @@ public class PictureViewerActivity extends BaseActivity {
                     shareIntent.putExtra(Intent.EXTRA_STREAM, documentFile.getUri());
                     shareIntent.setType("image/*");
                     startActivity(Intent.createChooser(shareIntent, "将图片分享到"));
-                    MobclickAgent.onEvent(this, "ShareSinglePicture");
                 } else {
                     showSnackBar("保存成功");
-                    // 统计保存单图次数
-                    MobclickAgent.onEvent(this, "SaveSinglePicture");
                 }
             } else {
                 showSnackBar("保存失败，请重新设置下载目录");

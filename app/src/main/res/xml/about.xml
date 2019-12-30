@@ -4,30 +4,18 @@
     <PreferenceCategory android:title="关于H-Viewer">
 
         <Preference
-            android:key="pref_about_author"
-            android:title="@string/setting_about_author"
-            android:summary="@string/setting_about_author_summary"/>
+            android:key="pref_about_original_author"
+            android:summary="@string/setting_about_original_author_summary"
+            android:title="@string/setting_about_original_author" />
 
         <Preference
             android:key="pref_about_github"
             android:title="@string/setting_about_github"
             android:summary="@string/setting_about_github_summary"/>
-        <Preference
-            android:key="pref_about_changelog"
-            android:title="@string/setting_about_changelog"
-            android:summary="@string/setting_about_changelog_summary"/>
+
         <Preference
             android:key="pref_about_version"
-            android:title="@string/setting_about_version"
-            android:summary="@string/setting_about_version_summary"/>
-        <Preference
-            android:key="pref_about_qq_group"
-            android:title="@string/setting_about_qq_group"
-            android:summary="@string/setting_about_qq_group_summary"/>
-        <Preference
-            android:key="pref_about_donate"
-            android:title="@string/setting_about_donate"
-            android:summary="@string/setting_about_donate_summary"/>
+            android:title="@string/setting_about_version" />
 
     </PreferenceCategory>
 

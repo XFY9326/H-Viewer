@@ -3,7 +3,8 @@ package ml.puredark.hviewer.dataholders;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.support.v4.util.Pair;
+
+import androidx.core.util.Pair;
 
 import com.google.gson.Gson;
 

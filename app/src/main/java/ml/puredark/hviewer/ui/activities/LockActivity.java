@@ -5,12 +5,13 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.andrognito.pinlockview.IndicatorDots;
 import com.andrognito.pinlockview.PinLockListener;
@@ -26,6 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
+import io.reactivex.observers.DisposableObserver;
 import me.zhanghai.android.patternlock.PatternView;
 import ml.puredark.hviewer.HViewerApplication;
 import ml.puredark.hviewer.R;
@@ -36,9 +38,8 @@ import ml.puredark.hviewer.ui.fragments.LockMethodFragment;
 import ml.puredark.hviewer.utils.PatternLockUtils;
 import ml.puredark.hviewer.utils.SharedPreferencesUtil;
 import ml.puredark.hviewer.utils.VibratorUtil;
-import rx.Subscriber;
-import rx.Subscription;
 import zwh.com.lib.FPerException;
+import zwh.com.lib.IdentificationInfo;
 import zwh.com.lib.RxFingerPrinter;
 
 import static ml.puredark.hviewer.HViewerApplication.mContext;
@@ -197,43 +198,41 @@ public class LockActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= 23 && getSystemService(Context.FINGERPRINT_SERVICE) != null) {
             try {
                 RxFingerPrinter rxFingerPrinter = new RxFingerPrinter(this);
-                Subscription subscription =
-                        rxFingerPrinter
-                                .begin()
-                                .subscribe(new Subscriber<Boolean>() {
-                                    @Override
-                                    public void onCompleted() {
-                                    }
+                DisposableObserver<IdentificationInfo> observer = new DisposableObserver<IdentificationInfo>() {
+                    @Override
+                    public void onNext(IdentificationInfo identificationInfo) {
+                        if (success)
+                            return;
+                        if (identificationInfo.isSuccessful()) {
+                            onSuccessUnlock();
+                        } else {
+                            showErrorMessage(LockActivity.this.getString(R.string.finger_print_lock_wrong), true);
+                        }
+                    }
 
-                                    @Override
-                                    public void onError(Throwable e) {
-                                        if (e instanceof FPerException) {
-                                            switch (((FPerException) e).getCode()) {
-                                                case SYSTEM_API_ERROR:
-                                                case PERMISSION_DENIED_ERROE:
-                                                case HARDWARE_MISSIING_ERROR:
-                                                case KEYGUARDSECURE_MISSIING_ERROR:
-                                                case NO_FINGERPRINTERS_ENROOLED_ERROR:
-                                                    break;
-                                                case FINGERPRINTERS_FAILED_ERROR:
-                                                default:
-                                                    showErrorMessage(((FPerException) e).getDisplayMessage(), false);
-                                            }
-                                        }
-                                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        if (e instanceof FPerException) {
+                            switch (((FPerException) e).getCode()) {
+                                case SYSTEM_API_ERROR:
+                                case PERMISSION_DENIED_ERROE:
+                                case HARDWARE_MISSIING_ERROR:
+                                case KEYGUARDSECURE_MISSIING_ERROR:
+                                case NO_FINGERPRINTERS_ENROOLED_ERROR:
+                                    break;
+                                case FINGERPRINTERS_FAILED_ERROR:
+                                default:
+                                    showErrorMessage(((FPerException) e).getDisplayMessage(), false);
+                            }
+                        }
+                    }
 
-                                    @Override
-                                    public void onNext(Boolean aBoolean) {
-                                        if (success)
-                                            return;
-                                        if (aBoolean) {
-                                            onSuccessUnlock();
-                                        } else {
-                                            showErrorMessage(LockActivity.this.getString(R.string.finger_print_lock_wrong), true);
-                                        }
-                                    }
-                                });
-                rxFingerPrinter.addSubscription(this, subscription);
+                    @Override
+                    public void onComplete() {
+
+                    }
+                };
+                rxFingerPrinter.begin().subscribe(observer);
             } catch (Exception e) {
                 e.printStackTrace();
             }

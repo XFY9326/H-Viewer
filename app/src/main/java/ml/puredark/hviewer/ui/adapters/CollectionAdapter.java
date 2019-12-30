@@ -4,10 +4,6 @@ import android.content.Context;
 import android.graphics.PointF;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.BitmapDrawable;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.OrientationHelper;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -18,10 +14,14 @@ import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.OrientationHelper;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.facebook.common.logging.FLog;
 import com.facebook.drawee.controller.BaseControllerListener;
-import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.image.ImageInfo;
 
@@ -120,7 +120,7 @@ public class CollectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             holder.tvSubmittime.setText(collection.datetime);
             if (site != null) {
                 checkSiteFlags(position, site, collection);
-                if ((collection.tags==null||collection.tags.size()<3) && holder.rvTags != null) {
+                if ((collection.tags == null || collection.tags.size() < 3) && holder.rvTags != null) {
                     holder.rvTags.setLayoutManager(new StaggeredGridLayoutManager(1, OrientationHelper.HORIZONTAL));
                 }
             } else if (collection instanceof LocalCollection) {
@@ -131,11 +131,11 @@ public class CollectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 checkSiteFlags(holder, ((LocalCollection) collection).site);
                 checkSiteFlags(position, ((LocalCollection) collection).site, collection);
             }
-            int emptySpaceCount = (collection.tags==null||collection.tags.size()<3)? 1 : 0;
-            emptySpaceCount += (TextUtils.isEmpty(collection.uploader))? 1 : 0;
-            emptySpaceCount += (TextUtils.isEmpty(collection.category))? 1 : 0;
+            int emptySpaceCount = (collection.tags == null || collection.tags.size() < 3) ? 1 : 0;
+            emptySpaceCount += (TextUtils.isEmpty(collection.uploader)) ? 1 : 0;
+            emptySpaceCount += (TextUtils.isEmpty(collection.category)) ? 1 : 0;
             Logger.d("CollectionAdapter", "emptySpaceCount : " + emptySpaceCount);
-            switch (emptySpaceCount){
+            switch (emptySpaceCount) {
                 case 3:
                 case 2:
                 case 1:
@@ -289,17 +289,17 @@ public class CollectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             );
         }
         if (site.hasFlag(Site.FLAG_COVER_LEFT)) {
-            ((SimpleDraweeView)holder.ivCover)
+            ((SimpleDraweeView) holder.ivCover)
                     .getHierarchy()
                     .setActualImageFocusPoint(new PointF(0f, 0.5f));
         }
         if (site.hasFlag(Site.FLAG_COVER_RIGHT)) {
-            ((SimpleDraweeView)holder.ivCover)
+            ((SimpleDraweeView) holder.ivCover)
                     .getHierarchy()
                     .setActualImageFocusPoint(new PointF(1f, 0.5f));
         }
         if (site.hasFlag(Site.FLAG_COVER_CENTER)) {
-            ((SimpleDraweeView)holder.ivCover)
+            ((SimpleDraweeView) holder.ivCover)
                     .getHierarchy()
                     .setActualImageFocusPoint(new PointF(0.5f, 0.5f));
         }

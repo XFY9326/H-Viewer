@@ -2,9 +2,10 @@ package ml.puredark.hviewer.ui.customs;
 
 import android.content.Context;
 import android.os.Handler;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 
 public class AutoFitStaggeredGridLayoutManager extends StaggeredGridLayoutManager {

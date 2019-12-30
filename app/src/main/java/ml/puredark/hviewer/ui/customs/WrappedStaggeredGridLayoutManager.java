@@ -1,10 +1,11 @@
 package ml.puredark.hviewer.ui.customs;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 import android.util.Log;
+
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 public class WrappedStaggeredGridLayoutManager extends StaggeredGridLayoutManager {
 

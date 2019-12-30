@@ -1,6 +1,7 @@
 package ml.puredark.hviewer.ui.listeners;
 
-import android.support.v4.view.ViewPager.OnPageChangeListener;
+
+import androidx.viewpager.widget.ViewPager;
 
 import ml.puredark.hviewer.libraries.swipeback.dispatchactivity.SwipeBackActivity;
 
@@ -8,7 +9,7 @@ import ml.puredark.hviewer.libraries.swipeback.dispatchactivity.SwipeBackActivit
  * Created by PureDark on 2016/9/29.
  */
 
-public class SwipeBackOnPageChangeListener implements OnPageChangeListener {
+public class SwipeBackOnPageChangeListener implements ViewPager.OnPageChangeListener {
     private SwipeBackActivity mActivity;
 
     public SwipeBackOnPageChangeListener(SwipeBackActivity activity) {

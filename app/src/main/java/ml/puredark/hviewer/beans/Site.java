@@ -1,7 +1,8 @@
 package ml.puredark.hviewer.beans;
 
-import android.support.v4.util.Pair;
 import android.text.TextUtils;
+
+import androidx.core.util.Pair;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

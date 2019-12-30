@@ -94,18 +94,11 @@
     <string name="settings_restore">恢复</string>
     <string name="settings_restore_summary">恢复站点,设置,收藏夹</string>
 
-    <string name="setting_about_author">作者</string>
-    <string name="setting_about_author_summary">PureDark</string>
+    <string name="setting_about_original_author">原作者</string>
+    <string name="setting_about_original_author_summary">PureDark</string>
     <string name="setting_about_github">Github主页</string>
     <string name="setting_about_github_summary">https://github.com/PureDark/H-Viewer</string>
-    <string name="setting_about_changelog">更新日志</string>
-    <string name="setting_about_changelog_summary">https://github.com/PureDark/H-Viewer/releases</string>
     <string name="setting_about_version">版本号</string>
-    <string name="setting_about_version_summary">v0.1.0</string>
-    <string name="setting_about_qq_group">加入内测群</string>
-    <string name="setting_about_qq_group_summary">590668841</string>
-    <string name="setting_about_donate">捐赠-支付宝</string>
-    <string name="setting_about_donate_summary">&lt;bruce.lee.liang@gmail.com&gt;</string>
 
     <string name="settings_lock_methods">应用解锁方式</string>
     <string name="settings_lock_methods_detail">设置解锁方式</string>
